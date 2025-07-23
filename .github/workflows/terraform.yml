@@ -105,7 +105,7 @@ jobs:
 
     # Generates an execution plan for Terraform
     - name: Terraform Plan
-      run: terraform plan -var="db_password=${{ secrets.DB_PASSWORD }}" -var="image=${{ steps.login-ecr.outputs.registry }}/${{ variables.MY_ECR_REPO_NAME}}/${{ github.sha }}"
+      run: terraform plan -var="db_password=${{ secrets.DB_PASSWORD }}" -var="image=${{ steps.login-ecr.outputs.registry }}/${{ env.MY_ECR_REPO_NAME}}/${{ github.sha }}"
 
       # On push to "main", build or change infrastructure according to Terraform configuration files
       # Note: It is recommended to set up a required "strict" status check in your repository for "Terraform Cloud". See the documentation on "strict" required status checks for more information: https://help.github.com/en/github/administering-a-repository/types-of-required-status-checks
