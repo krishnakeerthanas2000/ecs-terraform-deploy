@@ -3,7 +3,7 @@ variable "db_password" {
   type        = string
   sensitive   = true
 }
-variable "db_password" {
+variable "image" {
   description = "The image"
   type        = string
   sensitive   = true
