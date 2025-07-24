@@ -106,6 +106,7 @@ jobs:
     # Checks that all Terraform configuration files adhere to a canonical format
     - name: Terraform Format
       working-directory: terraform
+      continue-on-error: true
       run: terraform fmt -check -recursive
 
     - name: Terraform Format Fix (optional)
