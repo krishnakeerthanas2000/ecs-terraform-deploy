@@ -116,6 +116,7 @@ jobs:
 
     # Generates an execution plan for Terraform
     - name: Terraform Plan
+      working-directory: terraform
       run: terraform plan -var="db_password=${{ secrets.DB_PASSWORD }}" -var="image=${{ steps.login-ecr.outputs.registry }}/${{ vars.MY_ECR_REPO_NAME}}/${{ github.sha }}"
 
       # On push to "main", build or change infrastructure according to Terraform configuration files
