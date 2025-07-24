@@ -72,7 +72,7 @@ jobs:
       uses: aws-actions/configure-aws-credentials@v2
       with:
          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-         aws-region: ${{ env.AWS_REGION }}
+         aws-region: ${{ vars.AWS_REGION }}
          aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
@@ -83,7 +83,7 @@ jobs:
     - name: Build, tag, and push docker image to Amazon ECR
       env:
         REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-        REPOSITORY: ${{ env.MY_ECR_REPO_NAME}}
+        REPOSITORY: ${{ vars.MY_ECR_REPO_NAME}}
         IMAGE_TAG: ${{ github.sha }}
       run: |
         docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG .
@@ -105,7 +105,7 @@ jobs:
 
     # Generates an execution plan for Terraform
     - name: Terraform Plan
-      run: terraform plan -var="db_password=${{ secrets.DB_PASSWORD }}" -var="image=${{ steps.login-ecr.outputs.registry }}/${{ env.MY_ECR_REPO_NAME}}/${{ github.sha }}"
+      run: terraform plan -var="db_password=${{ secrets.DB_PASSWORD }}" -var="image=${{ steps.login-ecr.outputs.registry }}/${{ vars.MY_ECR_REPO_NAME}}/${{ github.sha }}"
 
       # On push to "main", build or change infrastructure according to Terraform configuration files
       # Note: It is recommended to set up a required "strict" status check in your repository for "Terraform Cloud". See the documentation on "strict" required status checks for more information: https://help.github.com/en/github/administering-a-repository/types-of-required-status-checks
