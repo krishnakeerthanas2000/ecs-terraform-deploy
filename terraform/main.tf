@@ -123,7 +123,7 @@ resource "aws_ecs_task_definition" "my_task" {
   [
     {
       "name": "my-container",
-      "image": var.image,
+      "image": "${var.image}",
       "memory": 512,
       "cpu": 256,
       "essential": true,
